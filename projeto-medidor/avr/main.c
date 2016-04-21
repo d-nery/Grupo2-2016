@@ -44,11 +44,11 @@ int main() {
 
 	for (;;) {
 		char start=255;
-		T1=convert(Tensao1);//
-		T2=convert(Tensao2);//
-		T3=convert(Tensao3);//Converte os valores float recebidos
-		T4=convert(Tensao4);//em variáveis do tipo char
-		T5=convert(Tensao5);//
+		T1=convert(Tensao1);//Converte os valores float recebidos em variáveis
+		T2=convert(Tensao2);//do tipo char, que vão de 0 até 255
+		T3=convert(Tensao3);//Nesse caso, o programa está dando que as variáveis
+		T4=convert(Tensao4);//não foram inicializadas, porque não sei como vamos 
+		T5=convert(Tensao5);//receber os dados
 		T6=convert(Tensao6);//
 
 		uart_putchar(start);
