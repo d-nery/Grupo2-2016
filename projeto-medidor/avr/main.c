@@ -27,16 +27,40 @@
 
 #include "uart.h"
 
+char convert(float Tensao) {	// Calcula a distância(em incrementos de 0.01) da tensão até o valor limite, e converte em char
+	int TC=(Tensao-1.74)*100;
+	return TC;
+}
+
+char sum(char T1, char T2, char T3, char T4, char T5, char T6) { // Faz a soma dos valores das tensões, e devolve uma char
+	return (T1+T2+T3+T4+T5+T6);
+}
+
 int main() {
+	float Tensao1, Tensao2, Tensao3, Tensao4, Tensao5, Tensao6;
+	char T1, T2, T3, T4, T5, T6;
+
 	uart_init();
 
 	for (;;) {
-		uart_putchar('T');
-		uart_putchar('R');
-		uart_putchar('\r');
-		uart_putchar('\n');
+		char start=255;
+		T1=convert(Tensao1);//
+		T2=convert(Tensao2);//
+		T3=convert(Tensao3);//Converte os valores float recebidos
+		T4=convert(Tensao4);//em variáveis do tipo char
+		T5=convert(Tensao5);//
+		T6=convert(Tensao6);//
 
-		_delay_ms(2000);
+		uart_putchar(start);
+		uart_putchar(T1);
+		uart_putchar(T2);
+		uart_putchar(T3);
+		uart_putchar(T4);
+		uart_putchar(T5);
+		uart_putchar(T6);
+		uart_putchar(sum(T1, T2, T3, T4, T5, T6));
+
+		_delay_ms(2000); // falta sincronizar
 	}
 
 	cli();
