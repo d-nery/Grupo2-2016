@@ -103,7 +103,7 @@ void getDigits(double, unsigned char*, unsigned char*, unsigned char*, unsigned 
 
 ////////////////////// @TODO Prototipos Bluetooth //////////////////////
 
-char convert(float);
+char convert(double);
 char sum(char, char, char, char, char, char);
 
 ////////////////////// Main //////////////////////
@@ -172,6 +172,18 @@ int main(void) {
 
 			i = 0;
 			cells[0] = 0.0;
+
+			uart_putchar('\r');
+			uart_putchar('\n');
+			uart_putchar(255);
+		  uart_putchar(convert(cells[1]));
+			uart_putchar(convert(cells[2]));
+			uart_putchar(convert(cells[3]));
+			uart_putchar(convert(cells[4]));
+			uart_putchar(convert(cells[5]));
+			uart_putchar(convert(cells[6]));
+			uart_putchar(sum(convert(cells[1]), convert(cells[2]), convert(cells[3]), convert(cells[4]), convert(cells[5]), convert(cells[6])));
+
 		}
 	}
 
@@ -181,7 +193,7 @@ int main(void) {
 
 ////////////////////// @TODO Funcoes Bluetooth //////////////////////
 
-char convert(float Tensao) {	// Calcula a distância(em incrementos de 0.01) da tensão até o valor limite, e converte em char
+char convert(double Tensao) {	// Calcula a distância(em incrementos de 0.01) da tensão até o valor limite, e converte em char
 	int TC=(Tensao-1.74)*100;
 	return TC;
 }
