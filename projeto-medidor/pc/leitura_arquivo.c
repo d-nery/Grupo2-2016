@@ -4,6 +4,7 @@
 #include <sys/types.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <asm/termios.h>
 
 int main(int argc, char **argv) {
 	if (argc != 2) {
@@ -20,6 +21,15 @@ int main(int argc, char **argv) {
 		perror("open");
 		return -1;
 	}
+
+  struct termios2 tio;
+
+  ioctl(fd, TCGETS2, &tio);
+  tio.c_cflag &= ~CBAUD;
+  tio.c_cflag |= BOTHER;
+  tio.c_ispeed = 9600;
+  tio.c_ospeed = 9600;
+  ioctl(fd, TCSETS2, &tio);
 
 	for (;;) {
 		char buffer[40];
@@ -43,15 +53,32 @@ int main(int argc, char **argv) {
 			{
 				// Se chegou aqui, a leitura deu certo e você pode fazer alguma
 				// coisa com os dados.
-				int i;
+				int i, j;
+        bool comeco = false;
 
-				// Apenas um exemplo, mostra os dados em hexadecimal e ASCII.
-				for (i = 0; i < count; i++)
-					printf("%.2hhx ", buffer[i]);
-				printf("\n");
-				for (i = 0; i < count; i++)
-					printf(" %c ", isprint(buffer[i]) ? buffer[i] : '.');
-				printf("\n");
+				for (i = 0; i < count; i++) {
+
+				    if (buffer[i] == 255) {
+              comeco = true;
+              int k = 0;
+            }
+
+            if (comeco) {
+              k++;
+              char T[8];
+              T[k] = buffer[i];
+              if (k == 7) {
+                if (T[1] + T[2] + T[3] + T[4] + T[5] + T[6] == T[7] ) {
+                  for (j = 1; j < 7; j++) {
+                    printf("A tensão %d é %c.\n", j, T[j]);
+                  }
+                } else {
+                  printf("A transmissão falhou.\n");
+                }
+                comeco = false;
+              }
+            }
+        }
 			}
 		}
 	}
