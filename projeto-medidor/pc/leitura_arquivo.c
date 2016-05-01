@@ -6,6 +6,9 @@
 #include <unistd.h>
 #include <asm/termios.h>
 
+unsigned char sum(unsigned char T1, unsigned char T2, unsigned char T3, unsigned char T4, unsigned char T5, unsigned char T6);
+double convertBack(unsigned char T);
+
 int main(int argc, char **argv) {
 	if (argc != 2) {
 		printf("Uso: %s arquivo\n", argv[0]);
@@ -32,7 +35,7 @@ int main(int argc, char **argv) {
 	ioctl(fd, TCSETS2, &tio);
 
 	for (;;) {
-		char buffer[40];
+		unsigned char buffer[40];
 		ssize_t count;
 
 		// read retorna o número de bytes lidos, que é salvo na variável count.
@@ -54,7 +57,7 @@ int main(int argc, char **argv) {
 				// coisa com os dados.
 				int i, j;
 				int k = 0;
-		        bool comeco = 0;
+		        int comeco = 0;
 
 				for (i = 0; i < count; i++) {
 
@@ -71,12 +74,12 @@ int main(int argc, char **argv) {
 		            	if (k == 7) {
 		                	if (sum(T[1], T[2], T[3], T[4], T[5], T[6]) == T[7] ) {
 			                	for (j = 1; j < 7; j++) {
-			                    	printf("A tensão %d é %c.\n", j, convertBack(T[j]));
+			                    	printf("A tensão %d é %f.\n", j, convertBack(T[j]));
 			                	}
 		                	} else {
 		                  		printf("A transmissão falhou.\n");
 		                	}
-		                	comeco = false;
+		                	comeco = 0;
 		              	}
 		            }
 		        } // fim do for que avalia os dados recebidos

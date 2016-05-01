@@ -103,8 +103,8 @@ void getDigits(double, unsigned char*, unsigned char*, unsigned char*, unsigned 
 
 ////////////////////// @TODO Prototipos Bluetooth //////////////////////
 
-char convert(double);
-char sum(char, char, char, char, char, char);
+unsigned char convert(double);
+unsigned char sum(unsigned char, unsigned char, unsigned char, unsigned char, unsigned char, unsigned char);
 
 ////////////////////// Main //////////////////////
 
