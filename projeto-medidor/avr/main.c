@@ -176,7 +176,7 @@ int main(void) {
 			uart_putchar('\r');
 			uart_putchar('\n');
 			uart_putchar(255);
-		  uart_putchar(convert(cells[1]));
+		  	uart_putchar(convert(cells[1]));
 			uart_putchar(convert(cells[2]));
 			uart_putchar(convert(cells[3]));
 			uart_putchar(convert(cells[4]));
@@ -193,13 +193,13 @@ int main(void) {
 
 ////////////////////// @TODO Funcoes Bluetooth //////////////////////
 
-char convert(double Tensao) {	// Calcula a distância(em incrementos de 0.01) da tensão até o valor limite, e converte em char
-	int TC=(Tensao-1.74)*100;
+unsigned char convert(double Tensao) { // Calcula a distância (em incrementos de 0.01) da tensão até o valor limite, e converte em char
+	unsigned char TC = (Tensao-1.74)*100;
 	return TC;
 }
 
-char sum(char T1, char T2, char T3, char T4, char T5, char T6) { // Faz a soma dos valores das tensões, e devolve uma char
-	return (T1+T2+T3+T4+T5+T6);
+unsigned char sum(unsigned char T1, unsigned char T2, unsigned char T3, unsigned char T4, unsigned char T5, unsigned char T6) { // Faz a soma dos valores das tensões, e devolve uma char
+	return (unsigned char) (T1+T2+T3+T4+T5+T6);
 }
 
 ////////////////////// Funcoes 7 segmentos, nao mexam //////////////////////
